@@ -39,7 +39,7 @@ namespace project1
         public int getSalary()
         {
             string stringedSalary = salary.ToString();
-            string formattedSalary =
+            string formattedSalary = 
             return this.salary;
         }
         override public string ToString()
