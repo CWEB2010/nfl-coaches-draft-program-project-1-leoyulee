@@ -26,6 +26,18 @@ namespace project1
             this.Institution = Institution;
             this.Salary = Salary;
         }*/
+        public string PrintName()
+        {
+            return this.Name;
+        }
+        public string PrintInstitution()
+        {
+            return this.Institution;
+        }
+        public string PrintSalary()
+        {
+            return "$" + this.Salary.ToString();
+        }
         public override string ToString()
         {
             return $"{Name}\n({Institution})\n${Salary}";

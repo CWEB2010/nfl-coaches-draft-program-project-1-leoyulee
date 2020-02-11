@@ -10,4 +10,22 @@ namespace project1
             Console.Beep();
         }
     }
+    class Table
+    {
+        private readonly String[] Header = { "Position", "The Best", "2nd Best", "3rd Best", "4th Best", "5th Best" };
+        Row[] Rows;
+        public Table(Row[] args)
+        {
+            this.Rows = args;
+        }
+    }
+    class Row
+    {
+        private readonly string Label;
+        private Player[] Players;
+        public Row(String Label, Player[] Players)
+        {
+
+        }
+    }
 }
