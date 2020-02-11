@@ -25,7 +25,12 @@ namespace project1
         private Player[] Players;
         public Row(String Label, Player[] Players)
         {
-
+            this.Label = Label;
+            this.Players = 
+            foreach (Player player in Players)
+            {
+                
+            }
         }
     }
 }

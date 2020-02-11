@@ -1,0 +1,10 @@
+﻿Textfile name: Position
+{
+	"Ranking" : int ranking,
+	"Name" : string name,
+	"Institution" : string institution,
+	"Salary" : int salary
+},
+{
+//repeat
+}
