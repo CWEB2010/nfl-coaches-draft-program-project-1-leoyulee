@@ -34,8 +34,9 @@ namespace project1
                 foreach (JToken player in players)
                 {
                     Player Player = player.ToObject<Player>();
-                    playerList.Add(Player);
+                    playerList.Add(Player); //Add the player into the list
                 }
+                //Debug: Print all of the players
                 Console.WriteLine("\n"+Position);
                 foreach (Player player in playerList)
                 {
