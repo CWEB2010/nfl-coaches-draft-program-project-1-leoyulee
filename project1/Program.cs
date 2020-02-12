@@ -12,38 +12,9 @@ namespace project1
     {
         static void Main(string[] args)
         {
-            string path = @"C:\Users\leeleoy\Desktop\Advanced Programming Project 1\project1\Roster.json";
-            String[] Positions = { "Quarterback", "Running Back" };
-            Console.WriteLine("Hello World!");
-            /*var test = new Player("Quarterback", 0, "Joe Burrow", "LSU", 26400100);
-            var str = JsonConvert.SerializeObject(test, Formatting.Indented);
-            Console.WriteLine(str);
-            Console.Beep();
-            var test2 = JsonConvert.DeserializeObject<Player>(str);
-            Console.WriteLine(test2);
-            Console.Beep(440, 500);
-            //File.WriteAllText(path, str); //Write the json string*/
-            Console.Beep(294, 500);
-            //JObject documentation: https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm
-            //Deserializing partial JSON fragments documentation: https://www.newtonsoft.com/json/help/html/SerializingJSONFragments.htm
-            JObject playerRoster = JObject.Parse(File.ReadAllText(path));//read the json string
-            foreach(String Position in Positions)
-            {
-                IList<JToken> players = playerRoster[Position].Children().ToList(); //Get raw JSON data into a list
-                IList<Player> playerList = new List<Player>(); //Create raw list for data
-                foreach (JToken player in players)
-                {
-                    Player Player = player.ToObject<Player>();
-                    playerList.Add(Player); //Add the player into the list
-                }
-                //Debug: Print all of the players
-                Console.WriteLine("\n"+Position);
-                foreach (Player player in playerList)
-                {
-                    Console.WriteLine(player);
-                }
-            }
-            
+            Table MainTable = new Table();
+            Init(ref MainTable);
+            MainTable.PrintTable();
             /*for(int i = 0; i < test3.GetLength(0); i++) 
             {
                 for(int j = 0; j < test3.GetLength(1); j++)
@@ -53,28 +24,124 @@ namespace project1
             }*/
             
         }
+        private static void Init(ref Table mainTable)
+        {
+            string path = @"C:\Users\roblo\Desktop\Dunwoody Homework\Spring 2020\Advanced Programming\Project 1\project1\Roster.json"; //Developer Note: Make it relative to the program instead of an absolute path
+            String[] Positions = {
+                "Quarterback",
+                "Running Back",
+                "Wide Reciever",
+                "Defensive Lineman",
+                "Defensive-Back",
+                "Tight Ends",
+                "Line-Backer",
+                "Offensive Tackles"
+            };
+            Console.WriteLine("Hello World!");
+            Console.Beep(294, 500);
+            //JObject documentation: https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm
+            //Deserializing partial JSON fragments documentation: https://www.newtonsoft.com/json/help/html/SerializingJSONFragments.htm
+            JObject playerRoster = JObject.Parse(File.ReadAllText(path));//read the json string
+            foreach (String Position in Positions)
+            {
+                IList<JToken> players = playerRoster[Position].Children().ToList(); //Get raw JSON data into a list
+                List<Player> playerList = new List<Player>(); //Create raw list for data
+                foreach (JToken player in players)
+                {
+                    Player Player = player.ToObject<Player>();
+                    playerList.Add(Player); //Add the player into the list
+                }
+                playerList.TrimExcess();
+                mainTable.AddRow(new Row(Position, playerList.ToArray()));
+                /*
+                //Debug: Print all of the players
+                Console.WriteLine("\n" + Position);
+                foreach (Player player in playerList)
+                {
+                    Console.WriteLine(player);
+                }
+                */
+            }
+        }
     }
     class Table
     {
+        private readonly int TabLength = 22;
         private readonly String[] Header = { "Position", "The Best", "2nd Best", "3rd Best", "4th Best", "5th Best" };
-        Row[] Rows;
-        public Table(Row[] args)
+        private List<Row> Rows;
+        public Table()
         {
-            this.Rows = args;
+            this.Rows = new List<Row>();
+        }
+        public Table(Row[] FilledRows)
+        {
+            this.Rows = new List<Row>();
+            foreach (Row row in FilledRows)
+            {
+                this.AddRow(row);
+            }
+        }
+        public void PrintTable()
+        {
+            for(int i = -1; i<Rows.Count; i++)
+            {
+                PrintSeparator(TabLength * Header.Length);
+                if (i == -1)
+                {
+                    PrintHeader();
+                }
+                else
+                {
+                    Rows[i].ToString();
+                }
+            }
+        }
+        public void AddRow(Row FilledRow)
+        {
+            this.Rows.Add(FilledRow);
+            this.Rows.TrimExcess();
+        }
+        private void PrintSeparator(int length)
+        {
+            string output = "";
+            for(int i = 0; i<length; i++)
+            {
+                output += "-";
+            }
+            Console.WriteLine("\n"+output);
+        }
+        private void PrintHeader()
+        {
+            string outputString = "";
+            foreach(string String in Header)
+            {
+                outputString += String + "\t\t";
+            }
+            Console.WriteLine(outputString);
         }
     }
     class Row
     {
-        private readonly string Label;
-        private Player[] Players;
+        public readonly string Label;
+        private List<Player> Players;
         public Row(String Label, Player[] Players)
         {
             this.Label = Label;
-            this.Players = Players;
+            this.Players = new List<Player>();
             foreach (Player player in Players)
             {
-                
+                this.AddPlayer(player);
             }
+            this.Players.TrimExcess();
+        }
+        public void AddPlayer(Player player)
+        {
+            this.Players.Add(player);
+        }
+        public override string ToString()
+        {
+            
+            return base.ToString();
         }
     }
 }

@@ -14,6 +14,16 @@
       "Name": "Justin Herbert",
       "Institution": "Oregon",
       "Salary": 17420300
+    },
+    {
+      "Name": "Jordan Love",
+      "Institution": "Utah St.",
+      "Salary": 13100145
+    },
+    {
+      "Name": "Jake Fromm",
+      "Institution": "Georgia",
+      "Salary": 10300000
     }
   ],
   "Running Back": [
@@ -31,6 +41,178 @@
       "Name": "J.K. Dobbins",
       "Institution": "Ohio St.",
       "Salary": 18700800
+    },
+    {
+      "Name": "Zack Moss",
+      "Institution": "Utah",
+      "Salary": 15000000
+    },
+    {
+      "Name": "Cam Akers",
+      "Institution": "Florida St",
+      "Salary": 11600400
+    }
+  ],
+  "Wide Reciever": [
+    {
+      "Name": "CeeDee Lamb",
+      "Institution": "Oklahoma",
+      "Salary": 23400000
+    },
+    {
+      "Name": "Jerry Jeudy",
+      "Institution": "Alabama",
+      "Salary": 21900300
+    },
+    {
+      "Name": "Tee Higgins",
+      "Institution": "Clemson",
+      "Salary": 19300230
+    },
+    {
+      "Name": "Hunry Rugs III",
+      "Institution": "Alabama",
+      "Salary": 13400230
+    },
+    {
+      "Name": "Tyler Johnson",
+      "Institution": "Minnesota",
+      "Salary": 10000000
+    }
+  ],
+  "Defensive Lineman": [
+    {
+      "Name": "Chase Young",
+      "Institution": "Ohio St",
+      "Salary": 26200300
+    },
+    {
+      "Name": "Derrick Brown",
+      "Institution": "Auburn",
+      "Salary": 22000000
+    },
+    {
+      "Name": "A.J. Epenesa",
+      "Institution": "Iwoa",
+      "Salary": 16000000
+    },
+    {
+      "Name": "Javon Kinlaw",
+      "Institution": "So. Carolina",
+      "Salary": 18000000
+    },
+    {
+      "Name": "Yetur Gross-Matos",
+      "Institution": "Penn St",
+      "Salary": 13000000
+    }
+  ],
+  "Defensive-Back": [
+    {
+      "Name": "Jeff Okudah",
+      "Institution": "Ohio St",
+      "Salary": 24000000
+    },
+    {
+      "Name": "Grant Delpit",
+      "Institution": "LSU",
+      "Salary": 22500249
+    },
+    {
+      "Name": "Kristian Fulton",
+      "Institution": "LSU",
+      "Salary": 20000100
+    },
+    {
+      "Name": "Xavier MCKinney",
+      "Institution": "Alabama",
+      "Salary": 16000200
+    },
+    {
+      "Name": "CJ Henderson",
+      "Institution": "Florida",
+      "Salary": 11899999
+    }
+  ],
+  "Tight Ends": [
+    {
+      "Name": "Cole Kmet",
+      "Institution": "Notre Dame",
+      "Salary": 27800900
+    },
+    {
+      "Name": "Brycen Hopkins",
+      "Institution": "Purdue",
+      "Salary": 21000800
+    },
+    {
+      "Name": "Hunter Bryant",
+      "Institution": "Washington",
+      "Salary": 17499233
+    },
+    {
+      "Name": "Jared Pinkey",
+      "Institution": "Vanderbilt",
+      "Salary": 27900200
+    },
+    {
+      "Name": "Jacaob Breeland",
+      "Institution": "Oregon",
+      "Salary": 149000333
+    }
+  ],
+  "Line-Backer": [
+    {
+      "Name": "Isaiah Simmons",
+      "Institution": "Clemson",
+      "Salary": 22900300
+    },
+    {
+      "Name": "Kenneth Murray",
+      "Institution": "Oklahoma",
+      "Salary": 19000590
+    },
+    {
+      "Name": "Zack Baun",
+      "Institution": "Wisconsin",
+      "Salary": 180000222
+    },
+    {
+      "Name": "Akeem Davis-Gaither",
+      "Institution": "App. St.",
+      "Salary": 12999999
+    },
+    {
+      "Name": "Troy Dye",
+      "Institution": "Oregon",
+      "Salary": 10001100
+    }
+  ],
+  "Offensive Tackles": [
+    {
+      "Name": "Jedrick Will Jr.",
+      "Institution": "Alabama",
+      "Salary": 23000000
+    },
+    {
+      "Name": "Andrew Thomas",
+      "Institution": "Georgia",
+      "Salary": 20000000
+    },
+    {
+      "Name": "Tristan Wirfs.",
+      "Institution": "Iowa",
+      "Salary": 19400000
+    },
+    {
+      "Name": "Tyler Biadasz",
+      "Institution": "Wisconsin",
+      "Salary": 16200700
+    },
+    {
+      "Name": "Mekhi Becton",
+      "Institution": "Louisville",
+      "Salary": 15900000
     }
   ]
 }
