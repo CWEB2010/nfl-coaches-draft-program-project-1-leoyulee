@@ -1,0 +1,36 @@
+{
+  "Quarterback": [
+    {
+      "Name": "Joe Burrow",
+      "Institution": "LSU",
+      "Salary": 26400100
+    },
+    {
+      "Name": "Tua Tagovailoa",
+      "Institution": "Alabama",
+      "Salary": 20300100
+    },
+    {
+      "Name": "Justin Herbert",
+      "Institution": "Oregon",
+      "Salary": 17420300
+    }
+  ],
+  "Running Back": [
+    {
+      "Name": "D'Andre Swift",
+      "Institution": "Georgia",
+      "Salary": 24500100
+    },
+    {
+      "Name": "Jonathan Taylor",
+      "Institution": "Wisconsin",
+      "Salary": 19890200
+    },
+    {
+      "Name": "J.K. Dobbins",
+      "Institution": "Ohio St.",
+      "Salary": 18700800
+    }
+  ]
+}
