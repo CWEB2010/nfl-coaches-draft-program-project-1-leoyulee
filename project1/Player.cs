@@ -8,7 +8,9 @@ namespace project1
     public class Player
     {
         //Readonly tutorial reference https://www.tutlane.com/tutorial/csharp/csharp-readonly-property
+        [JsonProperty("Position", NullValueHandling = NullValueHandling.Ignore)]
         public readonly string Position;
+        [JsonProperty("Ranking", NullValueHandling = NullValueHandling.Ignore)]
         public readonly int Ranking;
         public readonly string Name;
         public readonly string Institution;
