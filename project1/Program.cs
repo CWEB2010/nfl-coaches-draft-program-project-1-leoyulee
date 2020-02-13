@@ -31,6 +31,7 @@ namespace project1
         {
             //JObject documentation: https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm
             //Deserializing partial JSON fragments documentation: https://www.newtonsoft.com/json/help/html/SerializingJSONFragments.htm
+            //Embedded Resource Files help: https://stackoverflow.com/questions/38762368/embedded-resource-in-net-core-libraries
             /*string[] names = assembly.GetManifestResourceNames(); //Get the resource names for debug
             foreach (string Name in names)
             {
