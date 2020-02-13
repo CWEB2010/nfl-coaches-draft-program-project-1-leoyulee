@@ -1,9 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections;
 using System.Resources;
-using Newtonsoft.Json;
+using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
 namespace project1
@@ -26,7 +29,23 @@ namespace project1
         }
         private static void Init(ref Table mainTable)
         {
-            string path = @"C:\Users\roblo\Desktop\Dunwoody Homework\Spring 2020\Advanced Programming\Project 1\project1\Roster.json"; //Developer Note: Make it relative to the program instead of an absolute path
+            //JObject documentation: https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm
+            //Deserializing partial JSON fragments documentation: https://www.newtonsoft.com/json/help/html/SerializingJSONFragments.htm
+            /*string[] names = assembly.GetManifestResourceNames(); //Get the resource names for debug
+            foreach (string Name in names)
+            {
+                Console.WriteLine(Name);
+            }*/
+            var assembly = Assembly.GetExecutingAssembly(); //Get the core address
+            string file;
+            var resourceName = "project1.Roster.json"; //The file name
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName)) //Get the file path in assembly code
+            using (StreamReader reader = new StreamReader(stream)) //Get the file itself
+            {
+                file = reader.ReadToEnd(); //Convert the file into a string
+                //Console.WriteLine(file); //debug
+            }
             String[] Positions = {
                 "Quarterback",
                 "Running Back",
@@ -39,9 +58,7 @@ namespace project1
             };
             Console.WriteLine("Hello World!");
             Console.Beep(294, 500);
-            //JObject documentation: https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm
-            //Deserializing partial JSON fragments documentation: https://www.newtonsoft.com/json/help/html/SerializingJSONFragments.htm
-            JObject playerRoster = JObject.Parse(File.ReadAllText(path));//read the json string
+            JObject playerRoster = JObject.Parse(file); //read the json string
             foreach (String Position in Positions)
             {
                 IList<JToken> players = playerRoster[Position].Children().ToList(); //Get raw JSON data into a list
