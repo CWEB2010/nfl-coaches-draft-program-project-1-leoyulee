@@ -27,7 +27,7 @@ namespace project1
 
             return base.ToString();
         }
-        private List<Player> GetPlayerList()
+        public List<Player> GetPlayerList()
         {
             return Players;
         }
