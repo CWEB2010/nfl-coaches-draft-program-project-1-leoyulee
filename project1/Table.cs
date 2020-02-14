@@ -6,7 +6,8 @@ namespace project1
 {
     class Table
     {
-        private readonly int TabLength = 8;
+        private static readonly int TabLength = 8;
+        private static readonly int minDisplacement = 1;
         private static readonly String[] Header = { "Position", "The Best", "2nd Best", "3rd Best", "4th Best", "5th Best" };
         private int[] minColumnLength = new int[Header.Length];
         private List<Row> Rows;
@@ -24,13 +25,13 @@ namespace project1
         }
         public void PrintTable()
         {
+            int charLong = 0;
+            foreach (int column in minColumnLength)
+            {
+                charLong += column;
+            }
             for (int i = -1; i < Rows.Count; i++)
             {
-                int charLong = 0;
-                foreach (int column in minColumnLength)
-                {
-                    charLong += column;
-                }
                 PrintSeparator(TabLength * charLong);
                 if (i == -1)
                 {
@@ -38,7 +39,7 @@ namespace project1
                 }
                 else
                 {
-                    Rows[i].ToString();
+                    PrintRow(Rows[i]);
                 }
             }
         }
@@ -51,11 +52,12 @@ namespace project1
         }
         private void checkRowStrings(List<Player> input)
         {
-            for(int i = 1; i<input.Count; i++)
+            for(int i = 0; i<input.Count; i++)
             {
-                this.CalculateMinColumnLength(input[i].PrintInstitution(), i);
-                this.CalculateMinColumnLength(input[i].PrintName(), i);
-                this.CalculateMinColumnLength(input[i].PrintSalary(), i);
+                int j = i + 1;
+                this.CalculateMinColumnLength(input[i].PrintInstitution(), j);
+                this.CalculateMinColumnLength(input[i].PrintName(), j);
+                this.CalculateMinColumnLength(input[i].PrintSalary(), j);
             }
         }
         private void CalculateMinColumnLength(string input, int column)
@@ -65,7 +67,6 @@ namespace project1
             if(minColumnLength[column] < minLengthForInput + 1)
             {
                 minColumnLength[column] = minLengthForInput + 1;
-                Console.WriteLine("ColumnNum: " + column + ", Tabs: " + minLengthForInput);
             }
         }
         private void PrintSeparator(int length)
@@ -80,27 +81,54 @@ namespace project1
         private void PrintHeader()
         {
             string outputString = "";
-            foreach (string String in Header)
+            for (int i = 0; i < Header.Length; i++)
             {
-                outputString += String;
-                int minTab = String.Length / 8;
-                for(int i = 0; i-1 < minColumnLength[i] - minTab; i++)
-                {
-                    outputString += "\t";
-                }
+                outputString += createTab(minColumnLength[i], Header[i]);
             }
             Console.WriteLine(outputString);
         }
-        private void PrintRow()
+        private void PrintRow(Row row)
         {
-            foreach (Row row in Rows)
-            {
-                foreach (Player player in row)
-                {
-                    string outputString = "";
+            string[] outputs = new string[] { "", "", "" };
 
+            List<Player> PlayerList = row.GetPlayerList();
+
+            for (int i = 0; i < PlayerList.Count; i++)
+            {
+                int j = i + 1;
+                if (i == 0)
+                {
+                    outputs[0] += createTab(minColumnLength[i], row.Label);
+                    outputs[1] += createTab(minColumnLength[i]);
+                    outputs[2] += createTab(minColumnLength[i]);
+                }
+                if (i != 4)
+                {
+                    outputs[0] += createTab(minColumnLength[j], PlayerList[i].PrintName());
+                    outputs[1] += createTab(minColumnLength[j], PlayerList[i].PrintInstitution());
+                    outputs[2] += createTab(minColumnLength[j], PlayerList[i].PrintSalary());
+                }
+                else
+                {
+                    outputs[0] += PlayerList[i].PrintName();
+                    outputs[1] += PlayerList[i].PrintInstitution();
+                    outputs[2] += PlayerList[i].PrintSalary();
                 }
             }
+            foreach (string output in outputs)
+            {
+                Console.WriteLine(output);
+            }
+        }
+        private string createTab(int columnLength, string stringToBeFormatted = "")
+        {
+            string output = stringToBeFormatted;
+            int minTab = (stringToBeFormatted.Length / 8) + minDisplacement;
+            for (int i = 0; i - 1 < columnLength - minTab; i++)
+            {
+                output += "\t";
+            }
+            return output;
         }
     }
 }
