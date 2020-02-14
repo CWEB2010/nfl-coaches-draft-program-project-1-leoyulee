@@ -7,7 +7,7 @@ namespace project1
     class Table
     {
         private static readonly int TabLength = 8;
-        private static readonly int minDisplacement = 1;
+        private static readonly int minCharBeforeTab = 4;
         private static readonly String[] Header = { "Position", "The Best", "2nd Best", "3rd Best", "4th Best", "5th Best" };
         private int[] minColumnLength = new int[Header.Length];
         private List<Row> Rows;
@@ -63,7 +63,7 @@ namespace project1
         private void CalculateMinColumnLength(string input, int column)
         {
             int stringLength = input.Length;
-            int minLengthForInput = stringLength / 8;
+            int minLengthForInput = (stringLength+minCharBeforeTab) / 8;
             if(minColumnLength[column] < minLengthForInput + 1)
             {
                 minColumnLength[column] = minLengthForInput + 1;
@@ -83,7 +83,14 @@ namespace project1
             string outputString = "";
             for (int i = 0; i < Header.Length; i++)
             {
-                outputString += createTab(minColumnLength[i], Header[i]);
+                if (i != Header.Length - 1)
+                {
+                    outputString += createTab(minColumnLength[i], Header[i]);
+                }
+                else
+                {
+                    outputString += Header[i];
+                }
             }
             Console.WriteLine(outputString);
         }
@@ -102,7 +109,7 @@ namespace project1
                     outputs[1] += createTab(minColumnLength[i]);
                     outputs[2] += createTab(minColumnLength[i]);
                 }
-                if (i != 4)
+                if (i != PlayerList.Count-1)
                 {
                     outputs[0] += createTab(minColumnLength[j], PlayerList[i].PrintName());
                     outputs[1] += createTab(minColumnLength[j], PlayerList[i].PrintInstitution());
@@ -123,8 +130,8 @@ namespace project1
         private string createTab(int columnLength, string stringToBeFormatted = "")
         {
             string output = stringToBeFormatted;
-            int minTab = (stringToBeFormatted.Length / 8) + minDisplacement;
-            for (int i = 0; i - 1 < columnLength - minTab; i++)
+            int minTab = stringToBeFormatted.Length / 8;
+            for (int i = 0; i < (columnLength - minTab); i++)
             {
                 output += "\t";
             }
