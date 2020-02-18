@@ -13,11 +13,22 @@ namespace project1
 {
     class Program
     {
+        String[] Positions = {
+                "Quarterback",
+                "Running Back",
+                "Wide Reciever",
+                "Defensive Lineman",
+                "Defensive-Back",
+                "Tight Ends",
+                "Line-Backer",
+                "Offensive Tackles"
+            };
+
         static void Main(string[] args)
         {
             Table MainTable = new Table();
             Init(ref MainTable);
-            MainTable.PrintTable();
+            MainMenu(ref MainTable);
             /*for(int i = 0; i < test3.GetLength(0); i++) 
             {
                 for(int j = 0; j < test3.GetLength(1); j++)
@@ -26,6 +37,11 @@ namespace project1
                 }
             }*/
             
+        }
+        private static void MainMenu(ref Table Table, bool error = false)
+        {
+            Table.PrintTable();
+
         }
         private static void Init(ref Table mainTable)
         {
@@ -47,16 +63,7 @@ namespace project1
                 file = reader.ReadToEnd(); //Convert the file into a string
                 //Console.WriteLine(file); //debug
             }
-            String[] Positions = {
-                "Quarterback",
-                "Running Back",
-                "Wide Reciever",
-                "Defensive Lineman",
-                "Defensive-Back",
-                "Tight Ends",
-                "Line-Backer",
-                "Offensive Tackles"
-            };
+            
             Console.WriteLine("Hello World!");
             Console.Beep(294, 500);
             JObject playerRoster = JObject.Parse(file); //read the json string

@@ -25,14 +25,14 @@ namespace project1
         }
         public void PrintTable()
         {
-            int charLong = 0;
+            int tabs = 0;
             foreach (int column in minColumnLength)
             {
-                charLong += column;
+                tabs += column;
             }
             for (int i = -1; i < Rows.Count; i++)
             {
-                PrintSeparator(TabLength * charLong);
+                PrintSeparator(TabLength * tabs);
                 if (i == -1)
                 {
                     PrintHeader();
