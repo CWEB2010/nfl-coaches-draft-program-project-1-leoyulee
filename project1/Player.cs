@@ -15,6 +15,7 @@ namespace project1
         public readonly string Name;
         public readonly string Institution;
         public readonly int Salary;
+        private readonly string[] BestArray = {"The Best", "2nd Best", "3rd Best", "4th Best", "5th Best"};
         public Player(string Position, int Ranking, string Name, string Institution, int Salary)
         {
             this.Position = Position;
@@ -22,6 +23,10 @@ namespace project1
             this.Name = Name;
             this.Institution = Institution;
             this.Salary = Salary;
+        }
+        public Player FromJson(string Position, int Ranking)
+        {
+            return new Player(Position, Ranking, this.Name, this.Institution, this.Salary);
         }
         /*public Player(string Name, string Institution, int Salary)
         {
@@ -41,9 +46,13 @@ namespace project1
         {
             return "$" + this.Salary.ToString();
         }
+        public string RankingString()
+        {
+            return BestArray[this.Ranking];
+        }
         public override string ToString()
         {
-            return $"{Name}\n({Institution})\n${Salary}";
+            return $"{Position}\n"+this.RankingString()+$"\n{Name}\n({Institution})\n${Salary}";
         }
     }
     /*class Quarterback : Player

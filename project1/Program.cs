@@ -64,21 +64,23 @@ namespace project1
             {
                 IList<JToken> players = playerRoster[Position].Children().ToList(); //Get raw JSON data into a list
                 List<Player> playerList = new List<Player>(); //Create raw list for data
+                int i = 0;
                 foreach (JToken player in players)
                 {
-                    Player Player = player.ToObject<Player>();
-                    playerList.Add(Player); //Add the player into the list
+                    Player _ = player.ToObject<Player>();
+                    playerList.Add(_.FromJson(Position, i)); //Add the player into the list
+                    i++;
                 }
                 playerList.TrimExcess();
                 mainTable.AddRow(new Row(Position, playerList.ToArray()));
-                /*
+                
                 //Debug: Print all of the players
-                Console.WriteLine("\n" + Position);
+                //Console.WriteLine("\n" + Position);
                 foreach (Player player in playerList)
                 {
                     Console.WriteLine(player);
                 }
-                */
+                
             }
         }
     }
