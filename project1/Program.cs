@@ -74,13 +74,14 @@ namespace project1
                 playerList.TrimExcess();
                 mainTable.AddRow(new Row(Position, playerList.ToArray()));
                 
+                /*
                 //Debug: Print all of the players
                 //Console.WriteLine("\n" + Position);
                 foreach (Player player in playerList)
                 {
                     Console.WriteLine(player);
                 }
-                
+                */
             }
         }
     }
