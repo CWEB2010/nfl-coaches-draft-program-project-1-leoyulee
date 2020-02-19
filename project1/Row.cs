@@ -8,7 +8,7 @@ namespace project1
     {
         public readonly string Label;
         private List<Player> Players;
-        public Row(String Label, Player[] Players)
+        public Row(string Label, Player[] Players)
         {
             this.Label = Label;
             this.Players = new List<Player>();

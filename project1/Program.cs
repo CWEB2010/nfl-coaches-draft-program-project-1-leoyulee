@@ -13,7 +13,7 @@ namespace project1
 {
     class Program
     {
-        String[] Positions = {
+        private static readonly String[] Positions = {
                 "Quarterback",
                 "Running Back",
                 "Wide Reciever",
@@ -41,7 +41,7 @@ namespace project1
         private static void MainMenu(ref Table Table, bool error = false)
         {
             Table.PrintTable();
-
+            Console.WriteLine("Type in either the Name or the Position and the Ranking of the player you would like to add to your cart.");
         }
         private static void Init(ref Table mainTable)
         {

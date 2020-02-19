@@ -50,6 +50,15 @@ namespace project1
             this.CalculateMinColumnLength(FilledRow.Label, 0);
             this.checkRowStrings(FilledRow.GetPlayerList());
         }
+        public bool GetPlayerByName(string inputName)
+        {
+            foreach(Row row in this.Rows)
+            {
+                List<Player> PlayerList = row.GetPlayerList();
+                //PlayerList.Exists()
+            }
+            return false;
+        }
         private void checkRowStrings(List<Player> input)
         {
             for(int i = 0; i<input.Count; i++)
