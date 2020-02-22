@@ -15,7 +15,7 @@ namespace project1
         public readonly string Name;
         public readonly string Institution;
         public readonly int Salary;
-        private readonly string[] BestArray = {"The Best", "2nd Best", "3rd Best", "4th Best", "5th Best"};
+        private readonly string[] BestArray = { "The Best", "2nd Best", "3rd Best", "4th Best", "5th Best" };
         public Player(string Position, int Ranking, string Name, string Institution, int Salary)
         {
             this.Position = Position;
@@ -34,6 +34,10 @@ namespace project1
             this.Institution = Institution;
             this.Salary = Salary;
         }*/
+        public Player Copy()
+        {
+            return new Player(this.Position, this.Ranking, this.Name, this.Institution, this.Salary);
+        }
         public string PrintName()
         {
             return this.Name;

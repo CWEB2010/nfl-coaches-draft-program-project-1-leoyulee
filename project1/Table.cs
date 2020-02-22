@@ -23,7 +23,7 @@ namespace project1
                 this.AddRow(row);
             }
         }
-        public void PrintTable()
+        public void PrintTable(List<Player> TakenPlayers = null)
         {
             Console.Clear();
             int tabs = 0;
@@ -40,7 +40,7 @@ namespace project1
                 }
                 else
                 {
-                    PrintRow(Rows[i]);
+                    PrintRow(Rows[i], TakenPlayers);
                 }
             }
         }
@@ -51,14 +51,17 @@ namespace project1
             this.CalculateMinColumnLength(FilledRow.Label, 0);
             this.checkRowStrings(FilledRow.GetPlayerList());
         }
-        public bool GetPlayerByName(string inputName)
+        public Player GetPlayerByName(string inputName)
         {
             foreach(Row row in this.Rows)
             {
                 List<Player> PlayerList = row.GetPlayerList();
-                //PlayerList.Exists()
+                if(PlayerList.Exists(p => p.Name == inputName))
+                {
+                    return PlayerList.Find(p => p.Name == inputName);
+                }
             }
-            return false;
+            return null;
         }
         private void checkRowStrings(List<Player> input)
         {
@@ -104,10 +107,10 @@ namespace project1
             }
             Console.WriteLine(outputString);
         }
-        private void PrintRow(Row row)
+        private void PrintRow(Row row, List<Player> TakenPlayer = null)
         {
             string[] outputs = new string[] { "", "", "" };
-
+            ConsoleColor originalColor = Console.ForegroundColor;
             List<Player> PlayerList = row.GetPlayerList();
 
             for (int i = 0; i < PlayerList.Count; i++)
@@ -119,6 +122,13 @@ namespace project1
                     outputs[1] += createTab(minColumnLength[i]);
                     outputs[2] += createTab(minColumnLength[i]);
                 }
+                /*foreach(Player player in TakenPlayer)
+                {
+                    if(GetPlayerByName(player.Name) != null)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+                }*/
                 if (i != PlayerList.Count-1)
                 {
                     outputs[0] += createTab(minColumnLength[j], PlayerList[i].PrintName());

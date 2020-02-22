@@ -7,10 +7,12 @@ namespace project1
     class Row
     {
         public readonly string Label;
+        public bool Selected;
         private List<Player> Players;
         public Row(string Label, Player[] Players)
         {
             this.Label = Label;
+            this.Selected = false;
             this.Players = new List<Player>();
             foreach (Player player in Players)
             {

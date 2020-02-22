@@ -24,12 +24,17 @@ namespace project1
                 "Line-Backer",
                 "Offensive Tackles"
             };
-
+        private static int DraftLimit = 5;
+        private static int StartingCurrency = 95000000;
         static void Main()
         {
             Table MainTable = new Table();
+            Console.WriteLine("Welcome to the NFL drafter planner!");
+            Console.WriteLine("How would you like to pick your players?");
+            int InputMethod = Prompt(true, "Typing their name", "Selecting their position and ranking");
+            Shopper Shopper = new Shopper(StartingCurrency, InputMethod);
             Init(ref MainTable);
-            MainMenu(ref MainTable, out int InputMethod);
+            MainMenu(ref MainTable, ref Shopper);
             /*for(int i = 0; i < test3.GetLength(0); i++) 
             {
                 for(int j = 0; j < test3.GetLength(1); j++)
@@ -39,21 +44,72 @@ namespace project1
             }*/
             
         }
-        
-        private static void MainMenu(ref Table Table, out int InputMethod, bool error = false)
+        private static void Checkout(ref Table Table, ref Shopper Shopper, string Reason)
         {
-            Table.PrintTable();
-            Console.WriteLine("Welcome to the NFL drafter planner!");
-            Console.WriteLine("How would you like to pick your players?");
-            InputMethod = Prompt(true, "Typing their name", "Selecting their position and ranking");
-            Console.WriteLine($"Type in the {0} of the player you would like to add to your roster.", (InputMethods)InputMethod);
-            if (InputMethod == 1)
+            //Console.Clear();
+            Console.WriteLine("Your session has been concluded because " + Reason);
+            List<Player> PlayerSelection = Shopper.GetPlayerList();
+            List<Player> gotbest = new List<Player>();
+            Console.WriteLine("Here are the players you've selected:");
+            foreach(Player player in PlayerSelection)
             {
-                
-            }else if(InputMethod == 2)
-            {
-                Console.WriteLine($"Type in the Position and the Ranking of the player you would like to add to your roster.");
+                Console.WriteLine(player.ToString());
+                if (player.Ranking <= 3)
+                {
+                    gotbest.Add(player);
+                }
             }
+            if(gotbest.Count >= 3)
+            {
+                Console.WriteLine("\nYour selection was cost effective!");
+            }
+        }
+        private static void MainMenu(ref Table Table, ref Shopper Shopper, bool error = false)
+        {
+            Table.PrintTable(Shopper.GetPlayerList());
+            InputMethods[] Methods = (InputMethods[])InputMethods.GetValues(typeof(InputMethods));
+            Shopper.ToString();
+            Console.WriteLine("Type in the {0} of the player you would like to add to your roster. Type in Done when you're done.", Methods[Shopper.SelectionMethod]);
+            if (Shopper.NumSelectedPlayers() <= DraftLimit)
+            {
+                if (Shopper.SelectionMethod == 0)
+                {
+                    SelectByName(ref Table, ref Shopper);
+                }
+                else if (Shopper.SelectionMethod == 1)
+                {
+                    Console.WriteLine("This feature hasn't been implimented yet. Shutting program down...");
+                    Console.ReadKey();
+                    Console.ReadKey();
+                }
+            }
+            else
+            {
+                Checkout(ref Table, ref Shopper, "you've hit the draft limit.");
+            }
+        }
+        private static void AddPlayer(Player input)
+        {
+            
+        }
+        private static void SelectByName(ref Table Table, ref Shopper Shopper, bool error = false)
+        {
+            PrintError(error);
+            String UserResponse = GetStrResponse();
+            if(UserResponse == "Done")
+            {
+                Checkout(ref Table, ref Shopper, "you've inputed \"Done\" in.");
+            }
+            Player SelectedPlayer = Table.GetPlayerByName(UserResponse);
+            if (SelectedPlayer == null || Shopper.CheckForPlayer(SelectedPlayer.Name))
+            {
+                SelectByName(ref Table, ref Shopper, true);
+            }
+            else
+            {
+                Shopper.AddPlayer(SelectedPlayer.Copy());
+            }
+            MainMenu(ref Table, ref Shopper);
         }
         private static int Prompt(bool subtractOne, params string[] args)
         {
@@ -62,13 +118,43 @@ namespace project1
             {
                 Console.WriteLine("Note to developer: You shouldn't be using this method if you're going to put only one argument in");
             }
-            Console.WriteLine($"Press one button, 1 through {0}, to make your selection.", argsLength);
-            int response = 0; //insert button pressing method here
+            Console.WriteLine("Enter one button, 1 through {0}, to make your selection.", argsLength);
+            for(int i = 0; i < argsLength; i++)
+            {
+                Console.WriteLine("{0}. {1}", i+1, args[i]);
+            }
+            int response = GetIntResponse(1, argsLength); //insert button pressing method here
             if (subtractOne)
             {
                 response--;
             }
             return response;
+        }
+        private static int GetIntResponse(int min, int max, bool error = false)
+        {
+            PrintError(error);
+            string userInput = Console.ReadLine();
+            if (Int32.TryParse(userInput, out int response))
+            {
+                return response;
+            }
+            else
+            {
+                return GetIntResponse(min, max, true);
+            }
+        }
+        private static string GetStrResponse(bool error = false)
+        {
+            PrintError(error);
+            string userInput = Console.ReadLine();
+            return userInput;
+        }
+        private static void PrintError(bool error = false)
+        {
+            if (error)
+            {
+                Console.WriteLine("Invalid input. Please try again.");
+            }
         }
         private static void Init(ref Table mainTable)
         {
