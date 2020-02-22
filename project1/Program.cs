@@ -13,6 +13,7 @@ namespace project1
 {
     class Program
     {
+        enum InputMethods {Name, Position}
         private static readonly String[] Positions = {
                 "Quarterback",
                 "Running Back",
@@ -24,11 +25,11 @@ namespace project1
                 "Offensive Tackles"
             };
 
-        static void Main(string[] args)
+        static void Main()
         {
             Table MainTable = new Table();
             Init(ref MainTable);
-            MainMenu(ref MainTable);
+            MainMenu(ref MainTable, out int InputMethod);
             /*for(int i = 0; i < test3.GetLength(0); i++) 
             {
                 for(int j = 0; j < test3.GetLength(1); j++)
@@ -38,10 +39,36 @@ namespace project1
             }*/
             
         }
-        private static void MainMenu(ref Table Table, bool error = false)
+        
+        private static void MainMenu(ref Table Table, out int InputMethod, bool error = false)
         {
             Table.PrintTable();
-            Console.WriteLine("Type in either the Name or the Position and the Ranking of the player you would like to add to your cart.");
+            Console.WriteLine("Welcome to the NFL drafter planner!");
+            Console.WriteLine("How would you like to pick your players?");
+            InputMethod = Prompt(true, "Typing their name", "Selecting their position and ranking");
+            Console.WriteLine($"Type in the {0} of the player you would like to add to your roster.", (InputMethods)InputMethod);
+            if (InputMethod == 1)
+            {
+                
+            }else if(InputMethod == 2)
+            {
+                Console.WriteLine($"Type in the Position and the Ranking of the player you would like to add to your roster.");
+            }
+        }
+        private static int Prompt(bool subtractOne, params string[] args)
+        {
+            int argsLength = args.Length;
+            if (argsLength == 1)
+            {
+                Console.WriteLine("Note to developer: You shouldn't be using this method if you're going to put only one argument in");
+            }
+            Console.WriteLine($"Press one button, 1 through {0}, to make your selection.", argsLength);
+            int response = 0; //insert button pressing method here
+            if (subtractOne)
+            {
+                response--;
+            }
+            return response;
         }
         private static void Init(ref Table mainTable)
         {
@@ -64,8 +91,6 @@ namespace project1
                 //Console.WriteLine(file); //debug
             }
             
-            Console.WriteLine("Hello World!");
-            Console.Beep(294, 500);
             JObject playerRoster = JObject.Parse(file); //read the json string
             foreach (String Position in Positions)
             {

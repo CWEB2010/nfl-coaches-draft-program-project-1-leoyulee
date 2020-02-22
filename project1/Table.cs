@@ -25,6 +25,7 @@ namespace project1
         }
         public void PrintTable()
         {
+            Console.Clear();
             int tabs = 0;
             foreach (int column in minColumnLength)
             {
