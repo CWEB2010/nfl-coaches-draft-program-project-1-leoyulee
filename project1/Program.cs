@@ -51,9 +51,12 @@ namespace project1
             Console.WriteLine("Your session has been concluded because " + Reason);
             List<Player> PlayerSelection = Shopper.GetPlayerList();
             List<Player> gotbest = new List<Player>();
+            Console.WriteLine("Here is how much you spent have have left:");
+            Console.WriteLine(Shopper.ReturnEconomy());
             Console.WriteLine("Here are the players you've selected:");
             foreach(Player player in PlayerSelection)
             {
+                Console.WriteLine("----------------------------");
                 Console.WriteLine(player.ToString());
                 if (player.Ranking <= 3)
                 {

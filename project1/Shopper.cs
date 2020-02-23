@@ -59,6 +59,10 @@ namespace project1
             Reason = null;
             return true;
         }
+        public string ReturnEconomy()
+        {
+            return $"Money Spent: {MoneySpent}\nMoney Left: {Money}";
+        }
         public override string ToString()
         {
             string PlayerOutput = "";
@@ -66,7 +70,7 @@ namespace project1
             {
                 PlayerOutput += "\n"+this.SelectedPlayers[i] + ",";
             }
-            return $"Money Spent: {MoneySpent}\n Money Left: {Money}\n Selected Players: " + PlayerOutput;
+            return $"Money Spent: {MoneySpent}\nMoney Left: {Money}\nSelected Players: " + PlayerOutput;
         }
     }
 }
