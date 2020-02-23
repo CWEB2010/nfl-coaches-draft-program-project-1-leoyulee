@@ -28,6 +28,7 @@ namespace project1
         private static int StartingCurrency = 95000000;
         static void Main()
         {
+            Console.Clear();
             Table MainTable = new Table();
             Console.WriteLine("Welcome to the NFL drafter planner!");
             Console.WriteLine("How would you like to pick your players?");
@@ -64,7 +65,7 @@ namespace project1
                 Console.WriteLine("\nYour selection was cost effective!");
             }
             Console.WriteLine("Would you like to try a different selection?");
-            int response = Prompt(false, "Yes", "No");
+            int response = Prompt(true, "Yes", "No");
             if (response == 0)
             {
                 Main();
