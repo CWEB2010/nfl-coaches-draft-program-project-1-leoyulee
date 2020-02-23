@@ -27,6 +27,8 @@ namespace project1
         }
         public void AddPlayer(Player input)
         {
+            this.MoneySpent += input.Salary;
+            this.Money -= input.Salary;
             this.SelectedPlayers.Add(input);
         }
         public bool CheckForPlayer(string inputName)
@@ -42,12 +44,27 @@ namespace project1
         {
             return this.SelectedPlayers;
         }
+        public bool CanContinue(int DraftLimit, out string Reason)
+        {
+            if (this.NumSelectedPlayers() >= DraftLimit)
+            {
+                Reason = "you have hit the draft limit.";
+                return false;
+            }
+            if (this.Money <= 0)
+            {
+                Reason = "you have no funds left";
+                return false;
+            }
+            Reason = null;
+            return true;
+        }
         public override string ToString()
         {
             string PlayerOutput = "";
             for (int i = 0; i < this.NumSelectedPlayers(); i++)
             {
-                PlayerOutput += this.SelectedPlayers[i] + ", ";
+                PlayerOutput += "\n"+this.SelectedPlayers[i] + ",";
             }
             return $"Money Spent: {MoneySpent}\n Money Left: {Money}\n Selected Players: " + PlayerOutput;
         }

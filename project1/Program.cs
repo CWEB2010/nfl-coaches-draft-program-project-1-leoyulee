@@ -31,7 +31,7 @@ namespace project1
             Table MainTable = new Table();
             Console.WriteLine("Welcome to the NFL drafter planner!");
             Console.WriteLine("How would you like to pick your players?");
-            int InputMethod = Prompt(true, "Typing their name", "Selecting their position and ranking");
+            int InputMethod = Prompt(true, "Typing their name", "[NOT WORKING/INDEV] Selecting their position and ranking");
             Shopper Shopper = new Shopper(StartingCurrency, InputMethod);
             Init(ref MainTable);
             MainMenu(ref MainTable, ref Shopper);
@@ -46,7 +46,7 @@ namespace project1
         }
         private static void Checkout(ref Table Table, ref Shopper Shopper, string Reason)
         {
-            //Console.Clear();
+            Console.Clear();
             Console.WriteLine("Your session has been concluded because " + Reason);
             List<Player> PlayerSelection = Shopper.GetPlayerList();
             List<Player> gotbest = new List<Player>();
@@ -63,14 +63,25 @@ namespace project1
             {
                 Console.WriteLine("\nYour selection was cost effective!");
             }
+            Console.WriteLine("Would you like to try a different selection?");
+            int response = Prompt(false, "Yes", "No");
+            if (response == 0)
+            {
+                Main();
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
         }
         private static void MainMenu(ref Table Table, ref Shopper Shopper, bool error = false)
         {
+            
             Table.PrintTable(Shopper.GetPlayerList());
             InputMethods[] Methods = (InputMethods[])InputMethods.GetValues(typeof(InputMethods));
-            Shopper.ToString();
+            Console.WriteLine(Shopper.ToString());
             Console.WriteLine("Type in the {0} of the player you would like to add to your roster. Type in Done when you're done.", Methods[Shopper.SelectionMethod]);
-            if (Shopper.NumSelectedPlayers() <= DraftLimit)
+            if (Shopper.CanContinue(DraftLimit, out string Reason))
             {
                 if (Shopper.SelectionMethod == 0)
                 {
@@ -85,16 +96,12 @@ namespace project1
             }
             else
             {
-                Checkout(ref Table, ref Shopper, "you've hit the draft limit.");
+                Checkout(ref Table, ref Shopper, Reason);
             }
         }
-        private static void AddPlayer(Player input)
+        private static void SelectByName(ref Table Table, ref Shopper Shopper, bool error = false, string reason = null)
         {
-            
-        }
-        private static void SelectByName(ref Table Table, ref Shopper Shopper, bool error = false)
-        {
-            PrintError(error);
+            PrintError(error, reason);
             String UserResponse = GetStrResponse();
             if(UserResponse == "Done")
             {
@@ -104,6 +111,10 @@ namespace project1
             if (SelectedPlayer == null || Shopper.CheckForPlayer(SelectedPlayer.Name))
             {
                 SelectByName(ref Table, ref Shopper, true);
+            }
+            else if (SelectedPlayer.Salary > Shopper.Money)
+            {
+                SelectByName(ref Table, ref Shopper, true, "You don't have enough funds for drafting that player");
             }
             else
             {
@@ -149,11 +160,11 @@ namespace project1
             string userInput = Console.ReadLine();
             return userInput;
         }
-        private static void PrintError(bool error = false)
+        private static void PrintError(bool error = false, string reason = "Invalid input. Please try again.")
         {
             if (error)
             {
-                Console.WriteLine("Invalid input. Please try again.");
+                Console.WriteLine(reason);
             }
         }
         private static void Init(ref Table mainTable)
